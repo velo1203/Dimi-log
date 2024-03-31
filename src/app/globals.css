@@ -2,13 +2,19 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    box-sizing: border-box;
 }
 
 :root {
     --BackgroundColor: #eff0f6;
+    --FontColor: #e83c77;
 }
 body {
     background-color: var(--BackgroundColor);
+}
+
+.defaultsize {
     max-width: 720px;
+    width: 80%;
     margin: 0 auto;
 }

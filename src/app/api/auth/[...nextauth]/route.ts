@@ -10,13 +10,15 @@ const handler = NextAuth({
     ],
     callbacks: {
         async signIn({ account, profile }: any) {
-            if (account.provider === "google") {
-                return (
-                    profile.email_verified &&
-                    profile.email.endsWith("@dimigo.hs.kr")
-                );
+            if (
+                account.provider === "google" &&
+                profile.email_verified &&
+                profile.email.endsWith("@dimigo.hs.kr")
+            ) {
+                console.log("profile", profile);
+                return true;
             }
-            return true; // Do different verification for other providers that don't have `email_verified`
+            return false;
         },
     },
 });
