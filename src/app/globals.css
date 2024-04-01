@@ -8,6 +8,9 @@
 :root {
     --BackgroundColor: #eff0f6;
     --FontColor: #e83c77;
+    --BackGray: #45454513;
+    --FontGray: #5e5e5e;
+    --Gray: #000000bd;
 }
 body {
     background-color: var(--BackgroundColor);

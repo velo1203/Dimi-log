@@ -15,22 +15,10 @@ const StyledHeaderTitle = styled.h1`
     color: var(--FontColor);
 `;
 
-const StyledHeaderItems = styled.div`
-    display: flex;
-    gap: 30px;
-    & > li {
-        font-size: 1.1rem;
-        cursor: pointer;
-    }
-`;
-
 function Header() {
     return (
         <StyledHeader>
             <StyledHeaderTitle>Dimilog</StyledHeaderTitle>
-            <StyledHeaderItems>
-                <li>설정</li>
-            </StyledHeaderItems>
         </StyledHeader>
     );
 }
