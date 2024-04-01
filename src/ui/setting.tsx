@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 import styled from "styled-components";
 
@@ -35,16 +36,27 @@ function Setting() {
         <StyledSetting>
             <StyledSettingTitle>개인 설정</StyledSettingTitle>
             <StyledSettingSection>
+                <StyledSettingTitle>학년 설정 </StyledSettingTitle>
+                <Select>
+                    <option>학과 선택</option>
+                </Select>
+                <Select>
+                    <option>학년 선택</option>
+                </Select>
+                <Select>
+                    <option>반 선택</option>
+                </Select>
+            </StyledSettingSection>
+            <StyledSettingSection>
                 <StyledSettingTitle>창업동아리 설정</StyledSettingTitle>
                 <Select>
                     <option>창업동아리 선택</option>
                 </Select>
+                <Input placeholder="창업동아리 장소 입력" />
             </StyledSettingSection>
             <StyledSettingSection>
                 <StyledSettingTitle>방과후</StyledSettingTitle>
-                <Select>
-                    <option>방과후 선택</option>
-                </Select>
+                <Input placeholder="방과후를 입력해주세요." />
             </StyledSettingSection>
             <Button>저장</Button>
         </StyledSetting>
