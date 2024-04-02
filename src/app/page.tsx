@@ -2,6 +2,7 @@
 
 import Setting from "@/ui/setting";
 import State from "@/ui/state";
+import StateList from "@/ui/statelist";
 import { signIn, signOut } from "next-auth/react";
 import { useSession, getSession } from "next-auth/react";
 
@@ -10,6 +11,7 @@ export default function Home() {
     return (
         <div>
             <State></State>
+            <StateList></StateList>
         </div>
     );
 }
