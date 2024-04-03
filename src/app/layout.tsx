@@ -3,7 +3,7 @@ import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "./api/auth/provider";
 import StyledComponentsRegistry from "@/lib/registry";
-import Header from "@/ui/header";
+import Header from "@/components/header";
 
 const notosans = Noto_Sans_KR({ subsets: ["latin"] });
 

@@ -1,9 +1,7 @@
 "use client";
 
-import Setting from "@/ui/setting";
-import State from "@/ui/state";
-import StateList from "@/ui/statelist";
-import { signIn, signOut } from "next-auth/react";
+import State from "@/components/state";
+import StateList from "@/components/statelist";
 import { useSession, getSession } from "next-auth/react";
 
 export default function Home() {

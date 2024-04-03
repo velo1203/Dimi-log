@@ -15,11 +15,22 @@ const handler = NextAuth({
                 profile.email_verified &&
                 profile.email.endsWith("@dimigo.hs.kr")
             ) {
-                console.log("profile", profile);
                 return true;
             }
             return false;
         },
+        async redirect({
+            url,
+            baseUrl,
+        }: {
+            url: string;
+            baseUrl: string;
+        }): Promise<string> {
+            return baseUrl;
+        },
+    },
+    pages: {
+        signIn: "/login",
     },
 });
 

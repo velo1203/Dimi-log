@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@/components/Button";
-import { Input } from "@/components/Input";
-import { Select } from "@/components/Select";
+import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
+import { Select } from "@/ui/Select";
 import styled from "styled-components";
 
 const StyledSetting = styled.div`
@@ -52,7 +52,12 @@ function Setting() {
                 <Select>
                     <option>창업동아리 선택</option>
                 </Select>
-                <Input placeholder="창업동아리 장소 입력" />
+            </StyledSettingSection>
+            <StyledSettingSection>
+                <StyledSettingTitle>일반동아리 설정</StyledSettingTitle>
+                <Select>
+                    <option>일반동아리 선택</option>
+                </Select>
             </StyledSettingSection>
             <StyledSettingSection>
                 <StyledSettingTitle>방과후</StyledSettingTitle>

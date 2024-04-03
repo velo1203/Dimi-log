@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@/components/Button";
-import { Input } from "@/components/Input";
-import { Select } from "@/components/Select";
+import { Button } from "@/ui/Button";
+import { Input } from "@/ui/Input";
+import { Select } from "@/ui/Select";
 import styled from "styled-components";
 
 const StyledStateList = styled.div`
@@ -26,16 +26,39 @@ const StyledStatusContainer = styled.ul`
     height: 100%;
     border-radius: 5px;
     overflow-y: scroll;
+    padding: 10px;
 `;
 
 const StyledStateOptions = styled.div`
     display: flex;
     gap: 20px;
     & > button {
-        width: 125px;
+        width: 20%;
     }
     & > input {
-        width: 100%;
+        flex-grow: 5;
+    }
+`;
+
+const StyledStateUser = styled.li`
+    height: 50px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--FontGray);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05);
+    & > p:first-child {
+        font-size: 1rem;
+        color: var(--Gray);
+    }
+    & > p > span {
+        color: var(--FontColor);
     }
 `;
 
@@ -55,7 +78,15 @@ function StateList() {
                 <Input placeholder="이름 검색" />
                 <Button>검색</Button>
             </StyledStateOptions>
-            <StyledStatusContainer></StyledStatusContainer>
+            <StyledStatusContainer>
+                <StyledStateUser>
+                    <p>1412 심호성</p>
+                    <p>
+                        <span>루나</span> 활동중
+                    </p>
+                    <p>휴머노이드실</p>
+                </StyledStateUser>
+            </StyledStatusContainer>
         </StyledStateList>
     );
 }

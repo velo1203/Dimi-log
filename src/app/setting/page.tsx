@@ -1,4 +1,4 @@
-import Setting from "@/ui/setting";
+import Setting from "@/components/setting";
 
 export default function SettingPage() {
     return (
