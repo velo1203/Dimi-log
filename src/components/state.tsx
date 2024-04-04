@@ -1,9 +1,11 @@
 "use client";
 
 import { Button } from "@/ui/Button";
+import PopupWrapper from "@/ui/popup";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import StatusChange from "./statuschage";
 
 const StyledState = styled.div`
     padding: 20px;
@@ -68,13 +70,23 @@ const StyledStatusInfo = styled.div`
 
 function State() {
     const [status, setStatus] = useState("상태로딩중..");
+    const [statusChange, setStatusChange] = useState(false); //status change popup status
     useEffect(() => {
         axios.get("/api/user").then((res) => {
             setStatus(res.data.status);
         });
     }, []);
+
     return (
         <StyledState>
+            <PopupWrapper //status change popup
+                onClose={() => {
+                    setStatusChange(false);
+                }}
+                isOpen={statusChange}
+            >
+                <StatusChange />
+            </PopupWrapper>
             <StyledClubContainer>
                 <p>현재 활동</p>
                 <StyledClub>
@@ -88,7 +100,13 @@ function State() {
                     </StyledStatusContainer>
                 </StyledClub>
             </StyledClubContainer>
-            <Button>활동 변경</Button>
+            <Button
+                onClick={() => {
+                    setStatusChange(true);
+                }}
+            >
+                활동 변경
+            </Button>
         </StyledState>
     );
 }

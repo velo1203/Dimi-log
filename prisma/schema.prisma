@@ -13,4 +13,8 @@ model User {
   email     String   @unique
   club     String?
   status   String?
+  department String?
+  afterSchool String?
+  grade String?
+  classNumber String?
 }
