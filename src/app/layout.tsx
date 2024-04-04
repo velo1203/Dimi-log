@@ -8,7 +8,7 @@ import Header from "@/components/header";
 const notosans = Noto_Sans_KR({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Dimilog",
+    title: "디미로그",
     description: "디미고 학급 인트라넷",
 };
 

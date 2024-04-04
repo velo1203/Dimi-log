@@ -1,3 +1,4 @@
+import { createUser, getUserByEmail } from "@/model/user.model";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -15,6 +16,10 @@ const handler = NextAuth({
                 profile.email_verified &&
                 profile.email.endsWith("@dimigo.hs.kr")
             ) {
+                const user = await getUserByEmail(profile.email);
+                if (!user) {
+                    await createUser(profile.name, profile.email);
+                }
                 return true;
             }
             return false;

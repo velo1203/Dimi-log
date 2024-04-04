@@ -1,6 +1,8 @@
 "use client";
 
 import { Button } from "@/ui/Button";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const StyledState = styled.div`
@@ -65,6 +67,12 @@ const StyledStatusInfo = styled.div`
 `;
 
 function State() {
+    const [status, setStatus] = useState("상태로딩중..");
+    useEffect(() => {
+        axios.get("/api/user").then((res) => {
+            setStatus(res.data.status);
+        });
+    }, []);
     return (
         <StyledState>
             <StyledClubContainer>
@@ -75,7 +83,7 @@ function State() {
                             <h1>
                                 <span>심호성</span>님은 현재
                             </h1>
-                            <p>루나 동아리 활동중입니다</p>
+                            <p>{status}</p>
                         </StyledStatusMessage>
                     </StyledStatusContainer>
                 </StyledClub>
