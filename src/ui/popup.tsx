@@ -17,9 +17,7 @@ export const StyledPopupBackground = styled.div`
 
 export const StyledPopupContent = styled.div`
     background-color: var(--White); /* 배경색 */
-    padding: 20px; /* 내부 여백 */
     border-radius: 10px; /* 모서리 둥글게 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     max-width: 720px; /* 최대 너비 */
     width: 90%; /* 너비 */
 `;

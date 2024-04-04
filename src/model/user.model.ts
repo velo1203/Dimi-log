@@ -30,17 +30,14 @@ export async function getUserByEmail(email: string) {
     }
 }
 
-export async function getUserStatus(email: string) {
+export async function getUser(email: string) {
     try {
-        const status = await prisma.user.findUnique({
+        const user = await prisma.user.findUnique({
             where: {
                 email: email,
             },
-            select: {
-                status: true,
-            },
         });
-        return status;
+        return user;
     } catch (err) {
         throw err;
     }

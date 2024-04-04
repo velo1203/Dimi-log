@@ -73,9 +73,13 @@ function State() {
     const [statusChange, setStatusChange] = useState(false); //status change popup status
     useEffect(() => {
         axios.get("/api/user").then((res) => {
+            if (res.data.status === null) {
+                setStatus("활동이 없습니다");
+                return;
+            }
             setStatus(res.data.status);
         });
-    }, []);
+    }, [statusChange]);
 
     return (
         <StyledState>
@@ -85,7 +89,7 @@ function State() {
                 }}
                 isOpen={statusChange}
             >
-                <StatusChange />
+                <StatusChange setStatusChange={setStatusChange} />
             </PopupWrapper>
             <StyledClubContainer>
                 <p>현재 활동</p>
