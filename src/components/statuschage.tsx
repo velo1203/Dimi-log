@@ -1,6 +1,7 @@
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -115,14 +116,14 @@ export default function StatusChange({
     const [statusMessage, setStatusMessage] = useState("");
     const [moreinfo, setMoreinfo] = useState("");
     const [User, setUser] = useState(null);
+    const router = useRouter();
     useEffect(() => {
         axios.get("/api/user").then((res) => {
             const user = res.data;
 
             if (!user.classNumber) {
                 alert("활동을 설정하려면, 학년정보를 입력해야합니다");
-                window.location.href = "/setting";
-                return;
+                router.push("/setting");
             }
 
             setSelectedActivity(user.statuscategory);

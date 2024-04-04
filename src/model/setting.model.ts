@@ -10,6 +10,7 @@ export async function getSetting(email: string) {
                 classNumber: true,
                 club: true,
                 afterSchool: true,
+                verified: true,
             },
         });
         return setting;

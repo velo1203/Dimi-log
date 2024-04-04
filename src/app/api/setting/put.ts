@@ -12,6 +12,11 @@ const SettingNotverify = z.object({
     verifycode: z.string().nullable(),
 });
 
+const Settingverify = z.object({
+    club: z.string().optional(),
+    afterSchool: z.string().optional().nullable(),
+});
+
 export async function putSetting(request: NextRequest) {
     try {
         const session: any = await getServerSession();
@@ -23,12 +28,23 @@ export async function putSetting(request: NextRequest) {
         }
         const user = await getUserByEmail(session.user.email);
         const setting = await request.json();
+        console.log("Setting", setting);
         if (user?.verified === false) {
+            console.log("User not verified", setting.verifycode, setting);
             SettingNotverify.parse(setting); // Validate settin
-            const ClassKey = classkey[setting.classNumber];
+            const ClassKey: string | undefined =
+                classkey[setting.classNumber as keyof typeof classkey];
             if (ClassKey && setting.verifycode === ClassKey) {
-                setting.verifycode = null;
+                delete setting.verifycode;
+                setting.verified = true;
+            } else {
+                return NextResponse.json(
+                    { error: "Invalid verify code" },
+                    { status: 400 }
+                );
             }
+        } else {
+            Settingverify.parse(setting);
         }
         await updateSetting(session.user.email, setting);
         return NextResponse.json({ message: "Setting updated" });
