@@ -119,7 +119,7 @@ export default function StatusChange({
         axios.get("/api/user").then((res) => {
             const user = res.data;
 
-            if (!user.classNumber || !user.grade || !user.department) {
+            if (!user.classNumber) {
                 alert("활동을 설정하려면, 학년정보를 입력해야합니다");
                 window.location.href = "/setting";
                 return;

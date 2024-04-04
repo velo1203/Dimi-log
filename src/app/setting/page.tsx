@@ -1,11 +1,6 @@
 import Setting from "@/components/setting";
-import fs from "fs";
-import path from "path";
+import settingConfig from "@/config/setting.json";
 export default function SettingPage() {
-    const filePath = path.join(process.cwd(), "config", "setting.json");
-    const jsonData = fs.readFileSync(filePath, "utf8");
-    const settingConfig = JSON.parse(jsonData);
-
     return (
         <div>
             <Setting settingConfig={settingConfig}></Setting>

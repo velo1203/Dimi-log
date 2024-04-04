@@ -7,8 +7,6 @@ export async function getSetting(email: string) {
                 email: email,
             },
             select: {
-                department: true,
-                grade: true,
                 classNumber: true,
                 club: true,
                 afterSchool: true,

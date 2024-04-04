@@ -47,6 +47,7 @@ export async function putStatus(request: NextRequest) {
         );
         return NextResponse.json({ message: "status changed" });
     } catch (e: any) {
+        console.log(e);
         return NextResponse.json({ error: "failed" }, { status: 400 });
     }
 }

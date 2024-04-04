@@ -38,16 +38,13 @@ const StyledSettingSection = styled.div`
 `;
 
 function Setting({ settingConfig }: { settingConfig: any }) {
-    const [department, setDepartment] = useState("");
-    const [grade, setGrade] = useState("");
     const [classNumber, setClassNumber] = useState("");
     const [club, setClub] = useState("");
+    const [verifycode, setVerifycode] = useState("");
     const [afterSchool, setAfterSchool] = useState("");
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios.get("/api/setting");
-            setDepartment(result.data.department);
-            setGrade(result.data.grade);
             setClassNumber(result.data.classNumber);
             setClub(result.data.club);
             setAfterSchool(result.data.afterSchool);
@@ -58,13 +55,12 @@ function Setting({ settingConfig }: { settingConfig: any }) {
         event.preventDefault(); // 폼의 기본 제출 동작을 방지
         try {
             const setting = {
-                department,
-                grade,
                 classNumber,
                 club,
                 afterSchool,
+                verifycode,
             };
-            if (!setting.department || !setting.grade || !setting.classNumber) {
+            if (!setting.classNumber) {
                 alert("학년 설정은 필수입니다");
                 return;
             }
@@ -80,27 +76,8 @@ function Setting({ settingConfig }: { settingConfig: any }) {
             <StyledSettingTitle>개인 설정</StyledSettingTitle>
             <StyledSettingSection>
                 <StyledSettingTitle>
-                    학년 설정 <span>필수!!</span>
+                    학급 설정 <span>필수!!</span>
                 </StyledSettingTitle>
-                <Select
-                    value={department}
-                    onChange={(e) => setDepartment(e.target.value)}
-                >
-                    <option value="">학과 선택</option>
-                    <option value="wp">웹프로그래밍</option>
-                    <option value="dc">디지털 콘텐츠</option>
-                    <option value="eb">E 비즈니스</option>
-                    <option value="hd">해킹방어</option>
-                </Select>
-                <Select
-                    value={grade}
-                    onChange={(e) => setGrade(e.target.value)}
-                >
-                    <option value="">학년 선택</option>
-                    <option value="1">1학년</option>
-                    <option value="2">2학년</option>
-                    <option value="3">3학년</option>
-                </Select>
                 <Select
                     value={classNumber}
                     onChange={(e) => setClassNumber(e.target.value)}
@@ -113,6 +90,12 @@ function Setting({ settingConfig }: { settingConfig: any }) {
                     <option value="5">5반</option>
                     <option value="6">6반</option>
                 </Select>
+                <Input
+                    placeholder="인증코드를 입력해주세요."
+                    onChange={(e) => {
+                        setVerifycode(e.target.value);
+                    }}
+                />
             </StyledSettingSection>
             <StyledSettingSection>
                 <StyledSettingTitle>
