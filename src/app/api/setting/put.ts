@@ -11,7 +11,7 @@ const Setting = z.object({
     afterSchool: z.string().optional(),
 });
 
-export async function putSetting(request: Request) {
+export async function putSetting(request: NextRequest) {
     try {
         const session: any = await getServerSession();
         if (!session) {

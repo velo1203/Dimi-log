@@ -125,7 +125,7 @@ export default function StatusChange({
                 return;
             }
 
-            setSelectedActivity(user.status);
+            setSelectedActivity(user.statuscategory);
         });
     }, []);
 

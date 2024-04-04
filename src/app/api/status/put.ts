@@ -9,7 +9,7 @@ const Status = z.object({
     moreinfo: z.string().optional(),
 });
 
-export async function putStatus(request: Request) {
+export async function putStatus(request: NextRequest) {
     try {
         const session: any = await getServerSession();
         if (!session) {
@@ -24,10 +24,17 @@ export async function putStatus(request: Request) {
         let statusMsg;
         switch (status.status) {
             case "Club":
-                statusMsg = "창업동아리 활동중입니다.";
+                statusMsg = "창업동아리(" + setting.club + ") 활동중입니다.";
                 break;
             case "AfterSchool":
-                statusMsg = "방과후 활동중입니다.";
+                statusMsg =
+                    "방과후 (" + setting.afterSchool + ") 활동중입니다.";
+                break;
+            case "Others":
+                statusMsg = "기타 활동중입니다.";
+                break;
+            case "SelfStudy":
+                statusMsg = "자율학습중입니다.";
                 break;
         }
         await updateStatus(

@@ -3,7 +3,7 @@ import { Http2ServerRequest } from "http2";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
-export async function GetUserInfo(response: Response, request: Request) {
+export async function GetUserInfo() {
     const session: any = await getServerSession();
     if (!session) {
         return NextResponse.json({ error: "Not authorized" }, { status: 401 });
