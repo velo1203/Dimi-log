@@ -42,7 +42,7 @@ const StyledStatusContainer = styled.ul`
     padding: 10px;
 `;
 
-const StyledStateOptions = styled.div`
+const StyledStateOptions = styled.form`
     display: flex;
     gap: 20px;
     & > button {
@@ -63,6 +63,7 @@ const StyledStateUser = styled.li`
     gap: 10px;
     font-weight: bold;
     justify-content: space-between;
+    margin-bottom: 5px;
     font-size: 0.9rem;
     color: var(--FontGray);
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05);
@@ -87,6 +88,15 @@ function StateList() {
     const [currentCount, setCurrentCount] = useState(0);
     const [totalCount, setTotalCount] = useState(0);
     const [verified, setVerified] = useState(false);
+    const [isloading, setIsLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [realSearchTerm, setRealSearchTerm] = useState("");
+
+    const onSearch = (e: any) => {
+        e.preventDefault(); // 기본 제출 이벤트 방지
+        setRealSearchTerm(searchTerm); // 입력 필드의 값을 검색어 상태로 설정
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -98,6 +108,7 @@ function StateList() {
                     setCurrentCount(result.data.currentCount);
                     setTotalCount(result.data.totalCount);
                 }
+                setIsLoading(false);
             } catch (error) {
                 alert("설정을 로드하는 데 실패했습니다.");
             }
@@ -110,7 +121,9 @@ function StateList() {
         // 컴포넌트 언마운트 시 인터벌 정리
         return () => clearInterval(interval);
     }, []); // 빈 배열은 컴포넌트가 마운트될 때 한 번만 useEffect를 실행하게 함
-
+    const filteredList = list.filter((user: any) =>
+        user.name.toLowerCase().includes(realSearchTerm.toLowerCase())
+    );
     return (
         <>
             {verified ? (
@@ -121,12 +134,15 @@ function StateList() {
                             총원:{totalCount} 현원: {currentCount}/{totalCount}
                         </h1>
                     </StyledStatusHeader>
-                    <StyledStateOptions>
-                        <Input placeholder="이름 검색" />
+                    <StyledStateOptions onSubmit={onSearch}>
+                        <Input
+                            placeholder="이름 검색"
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
                         <Button>검색</Button>
                     </StyledStateOptions>
                     <StyledStatusContainer>
-                        {list.map((user: any, i) => (
+                        {filteredList.map((user: any, i) => (
                             <StyledStateUser key={i}>
                                 <p>{user.name}</p>
                                 <p>{user.status}</p>
@@ -137,7 +153,11 @@ function StateList() {
                 </StyledStateList>
             ) : (
                 <StyledStatusAlert>
-                    <h1>학급 상태를 보려면 반설정을 해주세요.</h1>
+                    {isloading ? (
+                        <h1>로딩중입니다...</h1>
+                    ) : (
+                        <h1>학급 상태를 보려면 반설정을 해주세요.</h1>
+                    )}
                 </StyledStatusAlert>
             )}
         </>

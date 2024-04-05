@@ -90,7 +90,7 @@ const StyledStatusPreview = styled.div`
     padding: 20px;
     background-color: var(--BackGray);
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     gap: 5px;
     & > h1 {
         font-size: 1.3rem;
@@ -213,8 +213,9 @@ export default function StatusChange({
                 <h1>활동 상태 메시지</h1>
                 <StyledStatusPreview>
                     <p>
-                        심호성님은 <span>{statusMessage}</span> 활동중입니다.
+                        <span>{statusMessage}</span> 활동중입니다.
                     </p>
+                    <p>{moreinfo}</p>
                 </StyledStatusPreview>
             </StyedStatusSection>
             <StyedStatusSection>

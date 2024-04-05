@@ -28,9 +28,14 @@ export async function putSetting(request: NextRequest) {
         }
         const user = await getUserByEmail(session.user.email);
         const setting = await request.json();
+        if (setting.club === null) {
+            //동아리 선택이 안될시 select가 null값으로 string과 충돌 발생 오류 해결
+            setting.club = "선택되지 않음";
+        }
         console.log("Setting", setting);
         if (user?.verified === false) {
             console.log("User not verified", setting.verifycode, setting);
+
             SettingNotverify.parse(setting); // Validate settin
             const ClassKey: string | undefined =
                 classkey[setting.classNumber as keyof typeof classkey];
@@ -49,6 +54,7 @@ export async function putSetting(request: NextRequest) {
         await updateSetting(session.user.email, setting);
         return NextResponse.json({ message: "Setting updated" });
     } catch (e: any) {
+        console.log(e);
         return NextResponse.json({ error: e }, { status: 400 });
     }
 }

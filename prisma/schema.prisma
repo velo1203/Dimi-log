@@ -18,4 +18,5 @@ model User {
   afterSchool String?
   classNumber String?
   statusmoreInfo String?
+  role      String   @default("user")
 }

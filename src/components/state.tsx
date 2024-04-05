@@ -70,9 +70,11 @@ const StyledStatusInfo = styled.div`
 
 function State() {
     const [status, setStatus] = useState("상태로딩중..");
+    const [user, setUser] = useState(null);
     const [statusChange, setStatusChange] = useState(false); //status change popup status
     useEffect(() => {
         axios.get("/api/user").then((res) => {
+            setUser(res.data);
             if (res.data.status === null) {
                 setStatus("활동이 없습니다");
                 return;
@@ -96,9 +98,18 @@ function State() {
                 <StyledClub>
                     <StyledStatusContainer>
                         <StyledStatusMessage>
-                            <h1>
-                                <span>심호성</span>님은 현재
-                            </h1>
+                            {user ? (
+                                <h1>
+                                    <span>
+                                        {(user as { name: string }).name}
+                                    </span>
+                                    님은 현재
+                                </h1>
+                            ) : (
+                                <h1>
+                                    <span>로딩중</span>입니다
+                                </h1>
+                            )}
                             <p>{status}</p>
                         </StyledStatusMessage>
                     </StyledStatusContainer>
