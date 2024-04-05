@@ -6,6 +6,7 @@ import { Select } from "@/ui/Select";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/navigation";
 
 const StyledSetting = styled.form`
     padding: 20px;
@@ -44,6 +45,7 @@ function Setting({ settingConfig }: { settingConfig: any }) {
     const [verified, setVerified] = useState(false); // [1
     const [afterSchool, setAfterSchool] = useState("");
     const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
+    const router = useRouter();
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -74,6 +76,7 @@ function Setting({ settingConfig }: { settingConfig: any }) {
             }
             const result = await axios.put("/api/setting", setting);
             alert("세팅이 저장되었습니다.");
+            router.replace("/");
         } catch (e: any) {
             alert("등록에 실패했습니다");
         }

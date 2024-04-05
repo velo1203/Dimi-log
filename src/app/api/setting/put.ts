@@ -39,8 +39,8 @@ export async function putSetting(request: NextRequest) {
                 setting.verified = true;
             } else {
                 return NextResponse.json(
-                    { error: "Invalid verify code" },
-                    { status: 400 }
+                    { message: "Invalid verify code" },
+                    { status: 401 }
                 );
             }
         } else {
@@ -49,7 +49,6 @@ export async function putSetting(request: NextRequest) {
         await updateSetting(session.user.email, setting);
         return NextResponse.json({ message: "Setting updated" });
     } catch (e: any) {
-        console.log(e);
-        return NextResponse.json({ error: "failed" }, { status: 400 });
+        return NextResponse.json({ error: e }, { status: 400 });
     }
 }

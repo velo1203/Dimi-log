@@ -120,8 +120,7 @@ export default function StatusChange({
     useEffect(() => {
         axios.get("/api/user").then((res) => {
             const user = res.data;
-
-            if (!user.classNumber) {
+            if (!user.verified) {
                 alert("활동을 설정하려면, 학년정보를 입력해야합니다");
                 router.push("/setting");
             }

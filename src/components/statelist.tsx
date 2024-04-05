@@ -65,15 +65,7 @@ const StyledStateUser = styled.li`
 function StateList() {
     return (
         <StyledStateList>
-            <h1>활동중인 사람들</h1>
-            <StyledStateOptions>
-                <Select>
-                    <option>학년 선택</option>
-                </Select>
-                <Select>
-                    <option>반 선택</option>
-                </Select>
-            </StyledStateOptions>
+            <h1>학급 활동 목록</h1>
             <StyledStateOptions>
                 <Input placeholder="이름 검색" />
                 <Button>검색</Button>

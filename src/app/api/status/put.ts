@@ -24,7 +24,7 @@ export async function putStatus(request: NextRequest) {
         let statusMsg;
         switch (status.status) {
             case "Club":
-                statusMsg = "창업동아리(" + setting.club + ") 활동중입니다.";
+                statusMsg = "동아리(" + setting.club + ") 활동중입니다.";
                 break;
             case "AfterSchool":
                 statusMsg =
