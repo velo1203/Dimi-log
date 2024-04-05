@@ -3,6 +3,8 @@
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Select } from "@/ui/Select";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const StyledStateList = styled.div`
@@ -14,10 +16,21 @@ const StyledStateList = styled.div`
     flex-direction: column;
     gap: 10px;
     height: 500px;
+`;
+
+const StyledStatusHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 10px;
     & > h1 {
         font-size: 1.2rem;
         font-weight: bold;
         color: var(--Gray);
+    }
+    & > h1:last-child {
+        color: var(--FontColor);
+        font-size: 1rem;
     }
 `;
 
@@ -62,24 +75,65 @@ const StyledStateUser = styled.li`
     }
 `;
 
+const StyledStatusAlert = styled.div`
+    text-align: center;
+    padding: 25px;
+    font-size: 0.8rem;
+    color: var(--FontGray);
+`;
+
 function StateList() {
+    const [list, setList] = useState([]);
+    const [currentCount, setCurrentCount] = useState(0);
+    const [totalCount, setTotalCount] = useState(0);
+    const [verified, setVerified] = useState(false);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const user = await axios.get("/api/user");
+                setVerified(user.data.verified);
+                if (user.data.verified) {
+                    const result = await axios.get("/api/statuslist");
+                    setList(result.data.list);
+                    setCurrentCount(result.data.currentCount);
+                    setTotalCount(result.data.totalCount);
+                }
+            } catch (error) {
+                alert("설정을 로드하는 데 실패했습니다.");
+            }
+        };
+        fetchData();
+    }, []);
     return (
-        <StyledStateList>
-            <h1>학급 활동 목록</h1>
-            <StyledStateOptions>
-                <Input placeholder="이름 검색" />
-                <Button>검색</Button>
-            </StyledStateOptions>
-            <StyledStatusContainer>
-                <StyledStateUser>
-                    <p>1412 심호성</p>
-                    <p>
-                        <span>루나</span> 활동중
-                    </p>
-                    <p>휴머노이드실</p>
-                </StyledStateUser>
-            </StyledStatusContainer>
-        </StyledStateList>
+        <>
+            {verified ? (
+                <StyledStateList>
+                    <StyledStatusHeader>
+                        <h1>학급 활동 목록</h1>
+                        <h1>
+                            총원:{totalCount} 현원: {currentCount}/{totalCount}
+                        </h1>
+                    </StyledStatusHeader>
+                    <StyledStateOptions>
+                        <Input placeholder="이름 검색" />
+                        <Button>검색</Button>
+                    </StyledStateOptions>
+                    <StyledStatusContainer>
+                        {list.map((user: any, i) => (
+                            <StyledStateUser key={i}>
+                                <p>{user.name}</p>
+                                <p>{user.status}</p>
+                                <p>{user.statusmoreInfo}</p>
+                            </StyledStateUser>
+                        ))}
+                    </StyledStatusContainer>
+                </StyledStateList>
+            ) : (
+                <StyledStatusAlert>
+                    <h1>학급 상태를 보려면 반설정을 해주세요.</h1>
+                </StyledStatusAlert>
+            )}
+        </>
     );
 }
 
