@@ -72,24 +72,15 @@ function State() {
     const [status, setStatus] = useState("상태로딩중..");
     const [statusChange, setStatusChange] = useState(false); //status change popup status
     useEffect(() => {
-        const interval = setInterval(() => {
-            axios
-                .get("/api/user")
-                .then((res) => {
-                    if (res.data.status === null) {
-                        setStatus("활동이 없습니다");
-                    } else {
-                        setStatus(res.data.status);
-                    }
-                })
-                .catch((error) => {
-                    console.error("There was an error!", error);
-                });
-        }, 5000); // 5000ms = 5초마다 실행
+        axios.get("/api/user").then((res) => {
+            if (res.data.status === null) {
+                setStatus("활동이 없습니다");
+                return;
+            }
+            setStatus(res.data.status);
+        });
+    }, [statusChange]);
 
-        // 컴포넌트가 언마운트되거나 useEffect가 다시 실행될 때 이전 인터벌을 정리
-        return () => clearInterval(interval);
-    }, [statusChange]); // statusChange가 변경될 때마다 useEffect가 다시 실행됩니다
     return (
         <StyledState>
             <PopupWrapper //status change popup

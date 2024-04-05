@@ -102,8 +102,15 @@ function StateList() {
                 alert("설정을 로드하는 데 실패했습니다.");
             }
         };
+
+        // 데이터를 즉시 가져온 후 3초마다 반복
         fetchData();
-    }, []);
+        const interval = setInterval(fetchData, 3000); // 3000ms = 3초
+
+        // 컴포넌트 언마운트 시 인터벌 정리
+        return () => clearInterval(interval);
+    }, []); // 빈 배열은 컴포넌트가 마운트될 때 한 번만 useEffect를 실행하게 함
+
     return (
         <>
             {verified ? (
