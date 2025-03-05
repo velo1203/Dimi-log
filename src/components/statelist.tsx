@@ -119,7 +119,13 @@ function StateList() {
 
         return () => clearInterval(interval);
     }, []);
-    const filteredList = list.filter((user: any) =>
+    const sortedList = [...list].sort((a: any, b: any) => {
+        const getStudentId = (name: string) =>
+            parseInt(name.slice(0, 4), 10) || 0;
+        return getStudentId(a.name) - getStudentId(b.name);
+    });
+
+    const filteredList = sortedList.filter((user: any) =>
         user.name.toLowerCase().includes(realSearchTerm.toLowerCase())
     );
     return (
