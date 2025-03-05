@@ -93,8 +93,8 @@ function StateList() {
     const [realSearchTerm, setRealSearchTerm] = useState("");
 
     const onSearch = (e: any) => {
-        e.preventDefault(); // 기본 제출 이벤트 방지
-        setRealSearchTerm(searchTerm); // 입력 필드의 값을 검색어 상태로 설정
+        e.preventDefault();
+        setRealSearchTerm(searchTerm);
     };
 
     useEffect(() => {
@@ -114,13 +114,11 @@ function StateList() {
             }
         };
 
-        // 데이터를 즉시 가져온 후 3초마다 반복
         fetchData();
-        const interval = setInterval(fetchData, 3000); // 3000ms = 3초
+        const interval = setInterval(fetchData, 10000);
 
-        // 컴포넌트 언마운트 시 인터벌 정리
         return () => clearInterval(interval);
-    }, []); // 빈 배열은 컴포넌트가 마운트될 때 한 번만 useEffect를 실행하게 함
+    }, []);
     const filteredList = list.filter((user: any) =>
         user.name.toLowerCase().includes(realSearchTerm.toLowerCase())
     );
