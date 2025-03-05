@@ -3,7 +3,10 @@ import { getUserByEmail } from "@/model/user.model";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import classkey from "@/config/classconfig.json";
+
+const classkey = JSON.parse(
+    Buffer.from(process.env.CLASS_CODE || "", "base64").toString("utf-8")
+);
 
 const SettingNotverify = z.object({
     classNumber: z.string().min(1),
@@ -29,16 +32,18 @@ export async function putSetting(request: NextRequest) {
         const user = await getUserByEmail(session.user.email);
         const setting = await request.json();
         if (setting.club === null) {
-            //동아리 선택이 안될시 select가 null값으로 string과 충돌 발생 오류 해결
             setting.club = "선택되지 않음";
         }
+
         console.log("Setting", setting);
         if (user?.verified === false) {
             console.log("User not verified", setting.verifycode, setting);
 
-            SettingNotverify.parse(setting); // Validate settin
+            SettingNotverify.parse(setting);
+
             const ClassKey: string | undefined =
                 classkey[setting.classNumber as keyof typeof classkey];
+
             if (ClassKey && setting.verifycode === ClassKey) {
                 delete setting.verifycode;
                 setting.verified = true;
@@ -51,6 +56,7 @@ export async function putSetting(request: NextRequest) {
         } else {
             Settingverify.parse(setting);
         }
+
         await updateSetting(session.user.email, setting);
         return NextResponse.json({ message: "Setting updated" });
     } catch (e: any) {

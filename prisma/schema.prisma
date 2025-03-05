@@ -1,22 +1,22 @@
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./database.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
+
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  verified  Boolean  @default(false)
-  email     String   @unique
-  club     String?
-  status   String?
-  statuscategory   String?
-  afterSchool String?
-  classNumber String?
-  statusmoreInfo String?
-  role      String   @default("user")
+  id              Int      @id @default(autoincrement())
+  name            String
+  verified        Boolean  @default(false)
+  email           String   @unique
+  club            String?
+  status          String?
+  statuscategory  String?
+  afterSchool     String?
+  classNumber     String?
+  statusmoreInfo  String?
+  role            String   @default("user")
 }

@@ -10,6 +10,22 @@ const notosans = Noto_Sans_KR({ subsets: ["latin"] });
 export const metadata: Metadata = {
     title: "디미로그",
     description: "디미고 학급 인트라넷",
+    icons: { icon: "/favicon.ico" },
+    openGraph: {
+        title: "디미로그",
+        description: "디미고 학급 인트라넷 DIMILOG",
+        url: "https://dimilog.devho.net/",
+        siteName: "DImiLog",
+        images: [
+            {
+                url: "/og-image.png",
+                width: 1200,
+                height: 630,
+                alt: "웹사이트 미리보기 이미지",
+            },
+        ],
+        type: "website",
+    },
 };
 
 export default function RootLayout({

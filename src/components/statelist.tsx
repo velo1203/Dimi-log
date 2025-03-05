@@ -66,7 +66,7 @@ const StyledStateUser = styled.li`
     margin-bottom: 5px;
     font-size: 0.9rem;
     color: var(--FontGray);
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05);
+
     & > p:first-child {
         font-size: 1rem;
         color: var(--Gray);
