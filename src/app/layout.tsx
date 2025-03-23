@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         siteName: "DImiLog",
         images: [
             {
-                url: "/og-image.png",
+                url: "https://dimilog.devho.net/images/og-image.png",
                 width: 1200,
                 height: 630,
                 alt: "웹사이트 미리보기 이미지",
