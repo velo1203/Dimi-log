@@ -11,7 +11,7 @@ export const StyledPopupBackground = styled.div`
     display: flex;
     align-items: center; /* 수직 정렬 */
     justify-content: center; /* 수평 정렬 */
-    z-index: 1000; /* 다른 요소보다 상위에 위치 */
+    z-index: 1000;
     overflow-y: auto;
 `;
 
